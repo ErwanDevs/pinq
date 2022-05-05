@@ -1,6 +1,6 @@
 import unittest
 
-from sample.utils.LambdaUtils import LambdaUtils
+from pinq.utils.lambda_utils import LambdaUtils
 
 class TestLambdaUtils(unittest.TestCase):
     def test_get_number_of_arguments_taken(self):
@@ -15,7 +15,7 @@ class TestLambdaUtils(unittest.TestCase):
         self.assertEqual(LambdaUtils.get_number_of_arguments_taken(func), 3)
         # n arguments than the number of taken argument
         func = lambda *args : None
-        self.assertEqual(LambdaUtils.get_number_of_arguments_taken(func), 0)
+        self.assertEqual(LambdaUtils.get_number_of_arguments_taken(func), 1)
 
             
 if __name__ == '__main__':
