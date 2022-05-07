@@ -1,9 +1,34 @@
-
+from typing import Callable, Dict, List
 from pinq.enumerable import Enumerable
-from pinq.utils.decorators import extends 
+from pinq.utils.decorators import extends
+from pinq.utils.iterable_utils import IterableUtils
+from pinq.utils.lambda_utils import LambdaUtils 
 
 
 @extends(Enumerable)
-def ToList(self):
-    new_list = list(self.generator) # generator to list empty the generator
-    return new_list
+def ToList(self) -> List:
+    resulting_list = list(self.generator) # generator to list empty the generator
+    self.generator = IterableUtils.generator_from_iterable(resulting_list)
+    return resulting_list
+
+# Note : Beware of duplicate keys
+# Note (2 electric boogaloo) : No equality comparer for dictionaries in Python = less work for me
+@extends(Enumerable)
+def ToDictionary(self, key_selector : Callable[..., object], element_selector : Callable[..., object] = lambda element : element) -> Dict:
+    match LambdaUtils.get_number_of_arguments_taken(key_selector):
+        case 1:
+            arguments_taken_by_key_selector = 1
+        case 2:
+            arguments_taken_by_key_selector = 2
+        case _:
+            raise ValueError("Key selector function must take one or two arguments")    
+    match LambdaUtils.get_number_of_arguments_taken(element_selector):
+        case 1:
+            arguments_taken_by_element_selector = 1
+        case 2:
+            arguments_taken_by_element_selector = 2
+        case _:
+            raise ValueError("Element selector function must take one or two arguments")
+    intermediate_list = self.ToList()  # restarting the generator and getting an intermediate value to work with
+    resulting_dictionary = {key_selector(*(*value_index_tuple[0:arguments_taken_by_key_selector],)) : element_selector(*(*value_index_tuple[0:arguments_taken_by_element_selector],)) for value_index_tuple in enumerate(intermediate_list)}
+    return resulting_dictionary

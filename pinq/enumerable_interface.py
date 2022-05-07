@@ -1,4 +1,4 @@
-from typing import Callable, Iterable
+from typing import Callable, Dict, Iterable, List
 from typing_extensions import Self
 from pinq.utils.decorators import module_not_imported
 
@@ -9,5 +9,15 @@ class IEnumerable(Iterable):
         return object.__new__(cls)
 
     @module_not_imported("IEnumerable", "pinq.query.Select")
-    def Select(self, func : Callable[..., object]) -> Self:
+    def Select(self, selector : Callable[..., object]) -> Self:
+        pass
+    @module_not_imported("IEnumerable", "pinq.query.Where")
+    def Where(self, predicate : Callable[..., bool]) -> Self:
+        pass
+
+    @module_not_imported("IEnumerable", "pinq.conversion")
+    def ToList(self) -> List:
+        pass
+    @module_not_imported("IEnumerable", "pinq.conversion")
+    def ToDictionary(self, key_selector : Callable[..., object], element_selector : Callable[..., object] = lambda element : element) -> Dict:
         pass

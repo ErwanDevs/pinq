@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - Simple methods like Select
-- Use decorators to better divide the project (see [here](https://stackoverflow.com/questions/9638446/is-there-any-python-equivalent-to-partial-classes))
+- Find a way to avoid resetting the generator when looping through the Enumerable
 - Type conversions
 - Aggregate functions
+- Performance tests
 - Extend python syntax with query keywords
+- Examples and use cases
 
 ## [0.0.1] - 2022-05-04
 ### Added
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - IEnumerable, an interface defining every method used in order for autocompletion to work but unable to be instanciated and the methods can't be called
 - Extends, a decorator to extend a class method
+- Conversion to list
 
 ### Modified
 - Moved to their own folder Select and Where method in "query"
