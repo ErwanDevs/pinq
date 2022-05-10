@@ -16,8 +16,9 @@ class TestSelect(unittest.TestCase):
         seed = 20
         size = 130
         refList = list(Utils.init_random_integer_list(seed, size))
-        modifiedList = Enumerable(refList).Select(lambda a : a+1).Select(lambda a : a -2)
-        for a, b in zip(refList, modifiedList):
+        enumerable = Enumerable(refList)
+        modifiedList = enumerable.Select(lambda a : a+1).Select(lambda a : a -2)
+        for a, b in zip(enumerable, modifiedList):
             self.assertEqual(a-1, b)
 
     def test_select_long_query(self):

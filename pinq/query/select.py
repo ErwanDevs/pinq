@@ -1,6 +1,6 @@
-
 from typing import Callable
 from typing_extensions import Self
+from pinq.enumerable import Enumerable
 from pinq.enumerable_interface import IEnumerable
 from pinq.utils.lambda_utils import LambdaUtils
 from pinq.utils.decorators import extends
@@ -10,9 +10,11 @@ from pinq.utils.decorators import extends
 def Select(self, selector : Callable[..., object]) -> IEnumerable:
     match LambdaUtils.get_number_of_arguments_taken(selector):
         case 1:
-            self.generator = (selector(value) for value in self.generator)
+            select_iteration = lambda : (selector(value) for value in self)
         case 2:
-            self.generator = (selector(value, index) for value, index in enumerate(self.generator))
+            select_iteration = lambda : (selector(value, index) for value, index in enumerate(self))
         case _:
             raise ValueError("Given function must take one or two arguments")
-    return self
+    enumerable = Enumerable(self)
+    enumerable.__iter__ = select_iteration
+    return enumerable
