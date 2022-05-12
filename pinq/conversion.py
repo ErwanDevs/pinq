@@ -26,5 +26,6 @@ def ToDictionary(self, key_selector : Callable[..., object], element_selector : 
             arguments_taken_by_element_selector = 2
         case _:
             raise ValueError("Element selector function must take one or two arguments")
-    resulting_dictionary = {key_selector(*(*value_index_tuple[0:arguments_taken_by_key_selector],)) : element_selector(*(*value_index_tuple[0:arguments_taken_by_element_selector],)) for value_index_tuple in enumerate(self)}
+    # TODO : This is long, ugly, unreadable and unmaintanable, fix that 
+    resulting_dictionary = {key_selector(*(*list(reversed(value_index_tuple))[0:arguments_taken_by_key_selector],)) : element_selector(*(*list(reversed(value_index_tuple))[0:arguments_taken_by_element_selector],)) for value_index_tuple in enumerate(self)}
     return resulting_dictionary

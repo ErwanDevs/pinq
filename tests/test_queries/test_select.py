@@ -1,7 +1,7 @@
 import unittest
 from tests.utils import Utils
 from pinq.enumerable import Enumerable
-import pinq.query
+import pinq.query.select
 
 class TestSelect(unittest.TestCase):
     def test_select_data_modification(self):

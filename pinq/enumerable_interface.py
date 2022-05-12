@@ -8,16 +8,22 @@ class IEnumerable(Iterable):
             raise TypeError(f"only children of '{cls.__name__}' may be instantiated")
         return object.__new__(cls)
 
-    @module_not_imported("IEnumerable", "pinq.query.Select")
+    @module_not_imported("IEnumerable", "pinq.query.select")
     def Select(self, selector : Callable[..., object]) -> Self:
         pass
-    @module_not_imported("IEnumerable", "pinq.query.Where")
+
+    @module_not_imported("IEnumerable", "pinq.query.where")
     def Where(self, predicate : Callable[..., bool]) -> Self:
+        pass    
+    
+    @module_not_imported("IEnumerable", "pinq.query.prepend")
+    def Prepend(self, element : object) -> Self:
         pass
 
     @module_not_imported("IEnumerable", "pinq.conversion")
     def ToList(self) -> List:
         pass
+    
     @module_not_imported("IEnumerable", "pinq.conversion")
     def ToDictionary(self, key_selector : Callable[..., object], element_selector : Callable[..., object] = lambda element : element) -> Dict:
         pass

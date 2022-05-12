@@ -56,12 +56,12 @@ class TestConversionUtils(unittest.TestCase):
         size = 987
         enumerable = Enumerable(Utils.init_random_integer_list(seed, size))
         # Without index (will delete element)
-        key_selector = lambda a : a
+        key_selector = lambda a : a + 2
         resulting_dictionary = enumerable.ToDictionary(key_selector)
         self.assertIsInstance(resulting_dictionary, Dict)
         # Assert every key is here, assert the enumerable is reset as well
         for value in enumerable:
-            self.assertIn(value, resulting_dictionary)
+            self.assertIn((value+2, value), resulting_dictionary.items())
         # With index
         key_selector = lambda value, index : value+index
         resulting_dictionary = enumerable.ToDictionary(key_selector)

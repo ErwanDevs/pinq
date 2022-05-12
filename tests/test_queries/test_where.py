@@ -7,7 +7,7 @@ class TestWhere(unittest.TestCase):
     def test_where(self):
         seed = 1
         size = 1000
-        refList = list(Utils.init_random_integer_list(seed, size))
+        refList = Utils.init_random_integer_list(seed, size)
         condition = lambda a : a < 50            
         modifiedList = list(Enumerable(refList).Where(condition))
         for a in refList:
@@ -19,7 +19,7 @@ class TestWhere(unittest.TestCase):
     def test_where_index(self):
         seed = 50
         size = 1000
-        refList = list(Utils.init_random_integer_list(seed, size))
+        refList = Utils.init_random_integer_list(seed, size)
         condition = lambda number, index : number <= index * 10
         modifiedList = list(Enumerable(refList).Where(condition))
         for a, i in enumerate(refList):
